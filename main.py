@@ -4,7 +4,6 @@ import chess
 import chess.engine
 import random
 import os
-import ssl
 
 app = Flask(__name__)
 CORS(app)  # Enable CORS for all routes
@@ -32,10 +31,4 @@ def evaluate():
 
 if __name__ == '__main__':
     port = int(os.environ.get('PORT', 5000))
-
-    # Path to SSL certificate and key files
-    ssl_context = ssl.create_default_context(ssl.Purpose.CLIENT_AUTH)
-    ssl_context.load_cert_chain('/etc/letsencrypt/live/evaluatechesspositionfromfen.xyz/fullchain.pem', '/etc/letsencrypt/live/evaluatechesspositionfromfen.xyz/privkey.pem')
-
-    # Run the app with SSL context
-    app.run(host='0.0.0.0', port=port, debug=True, ssl_context=ssl_context)
+    app.run(host='0.0.0.0', port=port, debug=True)
