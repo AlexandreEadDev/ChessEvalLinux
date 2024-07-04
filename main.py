@@ -14,7 +14,10 @@ def evaluate():
     level = request.json['level']
     board = chess.Board(fen)
 
-    with chess.engine.SimpleEngine.popen_uci("stockfish-ubuntu-x86-64-avx2") as engine:
+    # Assuming stockfish-ubuntu-x86-64-avx2 is in the same directory as this script
+    stockfish_path = os.path.join(os.path.dirname(__file__), 'stockfish-ubuntu-x86-64-avx2')
+
+    with chess.engine.SimpleEngine.popen_uci(stockfish_path) as engine:
         result = engine.analyse(board, chess.engine.Limit(time=0.1), multipv=5)
         moves_scores = [(entry['pv'][0].uci(), entry['score'].white().score(mate_score=10000)) for entry in result]
 
