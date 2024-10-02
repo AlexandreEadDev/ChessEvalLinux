@@ -28,6 +28,7 @@ def evaluate():
             os.path.dirname(__file__), "stockfish-ubuntu-x86-64-avx2"
         )
 
+        # Ouverture d'une connexion avec le moteur d'échecs Stockfish (exécutable) via le protocole UCI (Universal Chess Interface)
         with chess.engine.SimpleEngine.popen_uci(stockfish_path) as engine:
             # Analyze the position with Stockfish
             result = engine.analyse(board, chess.engine.Limit(time=0.1), multipv=5)
